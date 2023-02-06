@@ -5,8 +5,7 @@ mongoose.set("strictQuery", false);
 
 const app = require("./app");
 
-const { MONGO_URI } = process.env;
-const PORT = 3000;
+const { MONGO_URI, PORT } = process.env;
 
 async function main() {
   try {

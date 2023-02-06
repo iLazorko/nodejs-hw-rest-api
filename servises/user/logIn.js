@@ -6,6 +6,7 @@ const { User } = require("../../models/modelUser");
 const logIn = async (email, password) => {
   try {
     const user = await User.findOne({ email });
+    console.log(user);
 
     if (!user) {
       throw HttpError(401, `No user with email '${email}' found`);
@@ -13,6 +14,10 @@ const logIn = async (email, password) => {
 
     if (!(await bcrypt.compare(password, user.password))) {
       throw HttpError(401, "Wrong password");
+    }
+
+    if (!user.verify) {
+      throw HttpError(401, "Unauthorized");
     }
 
     const token = jwt.sign(
